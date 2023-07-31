@@ -1,1 +1,4 @@
-
+spring:
+  jpa:
+    show-sql: true # 테스트 코드의 실제 실행되는 쿼리가 log로 남는다.
+    generate-ddl: false # 구현체와 상관없이 자동으로 ddl을 만든다.
