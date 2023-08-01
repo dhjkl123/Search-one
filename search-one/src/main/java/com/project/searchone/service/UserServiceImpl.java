@@ -15,11 +15,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    public final UserDao userDao;
 
     @Override
     public List<myUser> getUsers() throws ExecutionException, InterruptedException {
         return userDao.getUsers();
+    }
+
+    @Override
+    public myUser getUserByUserName(String email) throws ExecutionException, InterruptedException {
+        return userDao.getUserByUserName(email);
     }
     
 }

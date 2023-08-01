@@ -8,5 +8,6 @@ import com.project.searchone.dto.myUser;
 public interface UserService {
 
     List<myUser> getUsers() throws ExecutionException, InterruptedException;
+    myUser getUserByUserName(String email) throws ExecutionException, InterruptedException;
 
 }

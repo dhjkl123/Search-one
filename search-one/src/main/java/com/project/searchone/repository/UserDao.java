@@ -28,4 +28,21 @@ public class UserDao {
         }
         return list;
     }
+
+    public myUser getUserByUserName(String email) throws ExecutionException, InterruptedException {
+
+
+        myUser user = new myUser();
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+            if(document.toObject(myUser.class).getEmail().equals(email)){
+                user = document.toObject(myUser.class);
+
+            }
+        }
+        
+        return user;
+    }
 }
