@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class myUserPrincipal implements UserDetails{
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return new BCryptPasswordEncoder().encode(user.getPassword());
     }
 
     @Override

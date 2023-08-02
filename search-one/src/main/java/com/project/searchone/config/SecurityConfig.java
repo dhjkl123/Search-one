@@ -50,7 +50,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/**").permitAll()
+				.requestMatchers("/**").hasRole("USER")
 				.anyRequest().authenticated()
 				
 			)
