@@ -47,4 +47,10 @@ public class BoardController {
         boardService.putBoard(req, docId);
         return new ResponseEntity<>("수정완료", HttpStatus.OK);
     }
+
+    @DeleteMapping("/{docId}")
+    public ResponseEntity<?> deleteBoard(@PathVariable("docId") String docId){
+        boardService.deleteBoard(docId);
+        return new ResponseEntity<>("삭제완료임", HttpStatus.OK);
+    }
 }

@@ -12,4 +12,6 @@ public interface BoardService {
     String postBoard(BoardPostRequestDto req) throws ExecutionException, InterruptedException;
 
     String putBoard(BoardPutRequestDto req, String docId) throws ExecutionException, InterruptedException;
+
+    void deleteBoard(String docId);
 }

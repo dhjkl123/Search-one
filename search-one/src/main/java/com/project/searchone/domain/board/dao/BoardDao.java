@@ -56,4 +56,10 @@ public class BoardDao {
         return docId;
     }
 
+    public void delete(String docId) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).document(docId);
+        docRef.delete();
+    }
+
 }
