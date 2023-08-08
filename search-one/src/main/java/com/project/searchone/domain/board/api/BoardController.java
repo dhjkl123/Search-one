@@ -4,16 +4,13 @@ import com.project.searchone.domain.board.application.BoardService;
 import com.project.searchone.domain.board.dto.BoardPostRequestDto;
 import com.project.searchone.domain.board.dto.BoardPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardResponseDto;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
@@ -28,6 +25,17 @@ public class BoardController {
     @GetMapping("")
     public ResponseEntity<?> getBoard() throws ExecutionException, InterruptedException{
         List<BoardResponseDto> boards = boardService.getPosts();
+
+        if (boards != null) {
+            return new ResponseEntity<>(boards, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{docId}")
+    public ResponseEntity<?> getOneBoard(@PathVariable("docId") String docId) throws ExecutionException, InterruptedException{
+        BoardResponseDto boards = boardService.getPost(docId);
 
         if (boards != null) {
             return new ResponseEntity<>(boards, HttpStatus.OK);

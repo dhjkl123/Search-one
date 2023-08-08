@@ -17,16 +17,32 @@ public class BoardDao {
     public static final String COLLECTION_NAME = "Post";
 
     public List<Board> getPosts() throws ExecutionException, InterruptedException {
-        // dto list
         List<Board> list = new ArrayList<>();
-        // firebase conenction
         Firestore db = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         for (QueryDocumentSnapshot document : documents){
-            list.add(document.toObject(Board.class));
+            Board board = document.toObject(Board.class);
+            String docId = document.getId();
+            board.setId(docId);
+            list.add(board);
         }
         return list;
+    }
+
+    public Board getPost(String docId) throws ExecutionException, InterruptedException{
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).document(docId);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+
+        if (document.exists()) {
+            Board board = document.toObject(Board.class);
+            board.setId(docId);
+            return board;
+        } else {
+            return null;
+        }
     }
 
 //    public List<Board> getPost() throws ExecutionException, InterruptedException {

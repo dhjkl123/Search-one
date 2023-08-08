@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface BoardService {
     List<BoardResponseDto> getPosts() throws ExecutionException, InterruptedException;
+    BoardResponseDto getPost(String docId) throws  ExecutionException, InterruptedException;
     String postBoard(BoardPostRequestDto req) throws ExecutionException, InterruptedException;
 
     String putBoard(BoardPutRequestDto req, String docId) throws ExecutionException, InterruptedException;

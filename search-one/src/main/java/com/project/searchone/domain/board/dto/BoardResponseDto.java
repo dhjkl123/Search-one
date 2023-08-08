@@ -8,14 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 public class BoardResponseDto {
 
-    private Integer id;
     private String title;
     private String content;
+    private String id;
 
     public BoardResponseDto(Board board) {
-        this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
+        this.id = board.getId();
     }
 
 }

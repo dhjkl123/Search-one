@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 public class Board {
 
-    private Integer id;
+    private String id;
     private String user_id;
     private String content;
     private String title;
@@ -19,5 +19,9 @@ public class Board {
     private Boolean status;
     private Timestamp created_at;
     private Timestamp updated_at;
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }

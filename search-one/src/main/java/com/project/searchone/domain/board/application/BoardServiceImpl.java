@@ -31,12 +31,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public BoardResponseDto getPost(String docId) throws  ExecutionException, InterruptedException{
+        Board board = boardDao.getPost(docId);
+        return new BoardResponseDto(board);
+    }
+
+    @Override
     public String postBoard(BoardPostRequestDto req) throws ExecutionException, InterruptedException {
         Board newBoard = new Board();
         newBoard.setTitle(req.getTitle());
         newBoard.setContent(req.getContent());
         newBoard.setUser_id(req.getUser_id());
-        newBoard.setId(req.getId());
         newBoard.setObdng(req.getObdng());
         newBoard.setOrdr_id(req.getOrdr_id());
         newBoard.setReq_user(req.getReq_user());
