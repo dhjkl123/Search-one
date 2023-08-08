@@ -1,12 +1,9 @@
-package com.project.searchone.dto;
+package com.project.searchone.domain.board.domain;
 
 import com.google.cloud.Timestamp;
 import lombok.*;
-
-@NoArgsConstructor
 @Data
-@ToString
-public class BoardResponseDto {
+public class Board {
 
     private Integer id;
     private String user_id;
@@ -14,5 +11,6 @@ public class BoardResponseDto {
     private String title;
     private Timestamp created_at;
     private Timestamp updated_at;
+
 
 }

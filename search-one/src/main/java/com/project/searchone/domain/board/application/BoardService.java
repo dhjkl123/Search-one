@@ -1,6 +1,6 @@
-package com.project.searchone.service;
+package com.project.searchone.domain.board.application;
 
-import com.project.searchone.dto.BoardResponseDto;
+import com.project.searchone.domain.board.dto.BoardResponseDto;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
