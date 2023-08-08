@@ -2,7 +2,9 @@ package com.project.searchone.domain.board.api;
 
 import com.project.searchone.domain.board.application.BoardService;
 import com.project.searchone.domain.board.dto.BoardPostRequestDto;
+import com.project.searchone.domain.board.dto.BoardPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardResponseDto;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,8 +37,14 @@ public class BoardController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> postBoard(@RequestBody BoardPostRequestDto boardReq) throws ExecutionException, InterruptedException {
-        String docId = boardService.postBoard(boardReq);
+    public ResponseEntity<?> postBoard(@RequestBody BoardPostRequestDto req) throws ExecutionException, InterruptedException {
+        String docId = boardService.postBoard(req);
         return new ResponseEntity<>(docId, HttpStatus.OK);
+    }
+
+    @PutMapping("/{docId}")
+    public ResponseEntity<?> putBoard(@RequestBody BoardPutRequestDto req, @PathVariable("docId") String docId) throws ExecutionException, InterruptedException {
+        boardService.putBoard(req, docId);
+        return new ResponseEntity<>("수정완료", HttpStatus.OK);
     }
 }

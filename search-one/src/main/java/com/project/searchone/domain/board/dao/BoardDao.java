@@ -1,16 +1,15 @@
 package com.project.searchone.domain.board.dao;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.project.searchone.domain.board.domain.Board;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -41,6 +40,20 @@ public class BoardDao {
         DocumentReference docRef = db.collection(COLLECTION_NAME).add(board).get();
         String documentId = docRef.getId();
         return documentId;
+    }
+
+    public String update(Board board, String docId) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).document(docId);
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("title", board.getTitle());
+        updates.put("content", board.getContent());
+
+        // writeResult를 통해서 추가 작업 가능
+        ApiFuture<WriteResult> writeResult = docRef.update(updates);
+
+        return docId;
     }
 
 }

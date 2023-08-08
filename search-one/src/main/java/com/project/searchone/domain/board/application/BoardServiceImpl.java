@@ -6,6 +6,7 @@ import com.google.j2objc.annotations.ObjectiveCName;
 import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.dao.BoardDao;
 import com.project.searchone.domain.board.dto.BoardPostRequestDto;
+import com.project.searchone.domain.board.dto.BoardPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,14 @@ public class BoardServiceImpl implements BoardService {
 
         return boardDao.save(newBoard);
     }
+
+    @Override
+    public String putBoard(BoardPutRequestDto req, String docId) throws ExecutionException, InterruptedException{
+        Board newBoard = new Board();
+        newBoard.setTitle(req.getTitle());
+        newBoard.setContent(req.getContent());
+        newBoard.setUpdated_at(Timestamp.now());
+        return boardDao.update(newBoard, docId);
+    }
+
 }
