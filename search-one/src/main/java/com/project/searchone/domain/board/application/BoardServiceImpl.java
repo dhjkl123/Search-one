@@ -1,8 +1,11 @@
 package com.project.searchone.domain.board.application;
 import java.util.List;
 
+import com.google.cloud.Timestamp;
+import com.google.j2objc.annotations.ObjectiveCName;
 import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.dao.BoardDao;
+import com.project.searchone.domain.board.dto.BoardPostRequestDto;
 import com.project.searchone.domain.board.dto.BoardResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,5 +27,24 @@ public class BoardServiceImpl implements BoardService {
         return boards.stream()
                 .map(board -> new BoardResponseDto(board))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String postBoard(BoardPostRequestDto req) throws ExecutionException, InterruptedException {
+        Board newBoard = new Board();
+        newBoard.setTitle(req.getTitle());
+        newBoard.setContent(req.getContent());
+        newBoard.setUser_id(req.getUser_id());
+        newBoard.setId(req.getId());
+        newBoard.setObdng(req.getObdng());
+        newBoard.setOrdr_id(req.getOrdr_id());
+        newBoard.setReq_user(req.getReq_user());
+        newBoard.setSrm_id(req.getSrm_id());
+        newBoard.setStatus(req.getStatus());
+        newBoard.setSvc_id(req.getSvc_id());
+        newBoard.setCreated_at(Timestamp.now());
+        newBoard.setUpdated_at(Timestamp.now());
+
+        return boardDao.save(newBoard);
     }
 }

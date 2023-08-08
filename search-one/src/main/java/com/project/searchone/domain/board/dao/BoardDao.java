@@ -1,6 +1,7 @@
 package com.project.searchone.domain.board.dao;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
@@ -22,8 +23,6 @@ public class BoardDao {
         // firebase conenction
         Firestore db = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
-        System.out.print(future);
-        System.out.print("fire bas connection");
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         for (QueryDocumentSnapshot document : documents){
             list.add(document.toObject(Board.class));
@@ -31,5 +30,17 @@ public class BoardDao {
         return list;
     }
 
+//    public List<Board> getPost() throws ExecutionException, InterruptedException {
+//        List<Board> list = new ArrayList<>();
+//        Firestore db = FirestoreClient.getFirestore();
+//        ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
+//    }
+
+    public String save(Board board) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).add(board).get();
+        String documentId = docRef.getId();
+        return documentId;
+    }
 
 }
