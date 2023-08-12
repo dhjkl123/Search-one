@@ -3,8 +3,6 @@ package com.project.searchone.domain.board.dao;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.project.searchone.domain.board.application.BoardCommentService;
-import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.domain.Comment;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
 import org.springframework.stereotype.Repository;
@@ -40,4 +38,25 @@ public class CommentDao {
         return  matchingComments;
 
     }
+
+    public BoardCommentResponseDto save(Comment comment) throws ExecutionException, InterruptedException{
+        // 저장
+        DocumentReference docRef = FirestoreClient.getFirestore()
+                                                .collection(COLLECTION_NAME)
+                                                .add(comment)
+                                                .get();
+
+        // comment id
+        String cmtId = docRef.getId();
+
+        if (cmtId.length() > 0) {
+            BoardCommentResponseDto res = new BoardCommentResponseDto(comment, cmtId);
+
+            return res;
+        } else {
+            return null;
+        }
+
+    }
+
 }

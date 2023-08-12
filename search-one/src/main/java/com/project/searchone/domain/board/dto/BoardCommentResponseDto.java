@@ -25,4 +25,16 @@ public class BoardCommentResponseDto {
 
     }
 
+    public BoardCommentResponseDto(Comment comment, String cmtId){
+
+        this.id = cmtId;
+        this.post_id = comment.getPost_id();
+        this.user_id = comment.getUser_id();
+        this.content = comment.getContent();
+        this.created_at = comment.getCreated_at();
+        this.updated_at = comment.getUpdated_at();
+
+    }
+
+
 }
