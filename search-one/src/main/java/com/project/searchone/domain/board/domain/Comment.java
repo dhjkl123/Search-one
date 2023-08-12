@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class Comment {
+
     private String id;
     private String post_id;
     private String user_id;

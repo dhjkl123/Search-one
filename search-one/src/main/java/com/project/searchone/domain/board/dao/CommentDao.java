@@ -4,11 +4,15 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.project.searchone.domain.board.domain.Comment;
+import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
+import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -51,11 +55,24 @@ public class CommentDao {
 
         if (cmtId.length() > 0) {
             BoardCommentResponseDto res = new BoardCommentResponseDto(comment, cmtId);
-
             return res;
         } else {
             return null;
         }
+
+    }
+
+    public BoardCommentResponseDto update(Comment comment, String cmtId) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).document(cmtId);
+
+        BoardCommentResponseDto res = new BoardCommentResponseDto(comment, cmtId);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("content", comment.getContent());
+
+        docRef.update(updates);
+
+        return res;
 
     }
 

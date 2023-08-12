@@ -2,6 +2,7 @@ package com.project.searchone.domain.board.api;
 
 import com.project.searchone.domain.board.application.BoardCommentService;
 import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
+import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,19 @@ public class BoardCommentController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> postCmt(@RequestBody BoardCommentPostRequestDto req, @PathVariable String postId) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> postCmt(@RequestBody BoardCommentPostRequestDto req) throws ExecutionException, InterruptedException {
         BoardCommentResponseDto comment = boardCommentService.postComment(req);
+
+        if (comment != null) {
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{cmtId}")
+    public  ResponseEntity<?> putCmt(@RequestBody BoardCommentPutRequestDto req, @PathVariable("cmtId") String cmtId) throws ExecutionException, InterruptedException {
+        BoardCommentResponseDto comment = boardCommentService.updateComment(req, cmtId);
 
         if (comment != null) {
             return new ResponseEntity<>(comment, HttpStatus.OK);

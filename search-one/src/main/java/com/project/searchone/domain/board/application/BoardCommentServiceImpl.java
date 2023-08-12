@@ -2,8 +2,10 @@ package com.project.searchone.domain.board.application;
 
 import com.google.cloud.Timestamp;
 import com.project.searchone.domain.board.dao.CommentDao;
+import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.domain.Comment;
 import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
+import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,5 +52,16 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 
         return commentDao.save(newComment);
 
+    }
+
+    @Override
+    public BoardCommentResponseDto updateComment(BoardCommentPutRequestDto req, String cmtId) throws ExecutionException, InterruptedException {
+
+        Comment updateComment = Comment.builder()
+                .content(req.getContent())
+                .updated_at(Timestamp.now())
+                .build();
+
+        return commentDao.update(updateComment, cmtId);
     }
 }
