@@ -1,11 +1,12 @@
 package com.project.searchone.domain.board.domain;
 
 import com.google.cloud.Timestamp;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
 
     private String id;
@@ -15,7 +16,4 @@ public class Comment {
     private Timestamp created_at;
     private Timestamp updated_at;
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }
