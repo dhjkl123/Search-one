@@ -76,4 +76,10 @@ public class CommentDao {
 
     }
 
+    public void delete(String cmtId) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection(COLLECTION_NAME).document(cmtId);
+        docRef.delete();
+    }
+
 }

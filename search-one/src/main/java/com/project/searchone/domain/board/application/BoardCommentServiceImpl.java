@@ -64,4 +64,10 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 
         return commentDao.update(updateComment, cmtId);
     }
+
+    @Override
+    public String deleteComment(String cmtId) {
+        commentDao.delete(cmtId);
+        return cmtId;
+    }
 }
