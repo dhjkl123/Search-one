@@ -23,6 +23,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user")
+    @PreAuthorize("hasAnyRole('USER')")
     public List<myUser> get() throws ExecutionException, InterruptedException{
         return userService.getUsers();
     }

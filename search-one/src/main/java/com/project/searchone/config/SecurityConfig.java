@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+import com.project.searchone.component.TokenProvider;
 import com.project.searchone.service.UserLoginService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
 	private final UserLoginService userLoginService;
+	private final TokenProvider tokenProvider;
 
 	// @Bean
     // public EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
@@ -39,12 +40,12 @@ public class SecurityConfig {
     // }
 
 	//@Bean
-	public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-		.userDetailsService(userLoginService)
-		.passwordEncoder(passwordEncoder());
-        return auth.build();
-    }
+	// public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+    //     auth
+	// 	.userDetailsService(userLoginService)
+	// 	.passwordEncoder(passwordEncoder());
+    //     return auth.build();
+    // }
 
 	
 	@Bean
@@ -63,20 +64,21 @@ public class SecurityConfig {
 			// 	.permitAll()
 			// )
 			.logout((logout) -> logout.permitAll())
+			.apply(new JwtSecurityConfig(tokenProvider))
 			
 			;
 
 		return http.build();
 	}
 
-	@Bean
-    DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(this.userLoginService);
+	// @Bean
+    // DaoAuthenticationProvider authenticationProvider(){
+    //     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    //     daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    //     daoAuthenticationProvider.setUserDetailsService(this.userLoginService);
 
-        return daoAuthenticationProvider;
-    }
+    //     return daoAuthenticationProvider;
+    // }
 
 	@Bean
     PasswordEncoder passwordEncoder(){

@@ -112,11 +112,11 @@ public class TokenProvider implements InitializingBean{
 
         log.info(claims.getSubject());
 
-        Map<String, String> m = parseSubject(claims.getSubject());
+        String name = claims.getSubject();
 
         myUser principal = null;
         try {
-            principal = userService.getUserByUserName(m.get("email").toString());
+            principal = userService.getUserByUserName(name);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
