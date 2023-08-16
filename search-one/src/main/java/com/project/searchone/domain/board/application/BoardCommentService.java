@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 public interface BoardCommentService {
     List<BoardCommentResponseDto> getComments(String postId) throws ExecutionException, InterruptedException;
 
-    BoardCommentResponseDto postComment(BoardCommentPostRequestDto req) throws ExecutionException, InterruptedException;
+    BoardCommentResponseDto postComment(BoardCommentPostRequestDto req, String postId) throws ExecutionException, InterruptedException;
 
     BoardCommentResponseDto updateComment(BoardCommentPutRequestDto req, String cmtId) throws  ExecutionException, InterruptedException;
 
