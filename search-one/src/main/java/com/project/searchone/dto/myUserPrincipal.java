@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class myUserPrincipal implements UserDetails{
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return new BCryptPasswordEncoder().encode(user.getPassword());
     }
 
     @Override

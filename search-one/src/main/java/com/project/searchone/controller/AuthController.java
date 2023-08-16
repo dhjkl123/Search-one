@@ -2,6 +2,9 @@ package com.project.searchone.controller;
 
 
 
+import java.util.concurrent.ExecutionException;
+
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.searchone.component.TokenProvider;
 
 import com.project.searchone.dto.myUser;
+import com.project.searchone.service.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,11 +31,14 @@ public class AuthController {
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserServiceImpl userServiceImpl;
 
-    @PostMapping("/authenticate")
-    public String authorize(@RequestBody myUser loginDto) {
+    @PostMapping("/authorize")
+    public String authorize(@RequestBody String login) throws ExecutionException, InterruptedException {
 
-        // TODO:여기서 유저 정보 DB랑 맞는지 확인
+        String[] info = login.split(",");
+
+        myUser loginDto = userServiceImpl.getUserByUserName(info[0]);
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
@@ -43,9 +50,6 @@ public class AuthController {
         // authentication 객체를 createToken 메소드를 통해서 JWT Token을 생성
         String jwt = tokenProvider.createToken(authentication);
 
-        System.out.println("======================================");
-
-        // tokenDto를 이용해 response body에도 넣어서 리턴
         return jwt;
     }
 }

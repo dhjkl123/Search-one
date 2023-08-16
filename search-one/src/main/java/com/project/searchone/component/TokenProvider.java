@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import org.conscrypt.OpenSSLMessageDigestJDK.SHA256;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -39,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class TokenProvider implements InitializingBean{
 
-    private final String secret = "a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==";
+    private String secret = "a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==";
     private final UserDetailsService userDetailsService;
     private Key key;
     private final long tokenValidityInMilliseconds = 60 * 60 * 1000L;
@@ -60,7 +62,15 @@ public class TokenProvider implements InitializingBean{
     public TokenProvider(
              UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
+        //init();
     }
+
+    // // 객체 초기화, secretKey를 Base64로 인코딩한다.
+    // @PostConstruct
+    // protected void init() {
+    //     secret = Base64.getEncoder().encodeToString(secret.getBytes());
+
+    // }
 
     @Override
     public void afterPropertiesSet() {
@@ -108,10 +118,8 @@ public class TokenProvider implements InitializingBean{
         try {
             principal = userService.getUserByUserName(m.get("email").toString());
         } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } //new myUser(claims.getSubject(), "", authorities);
 
