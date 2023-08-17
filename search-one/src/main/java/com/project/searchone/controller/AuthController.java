@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/login")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -33,7 +33,7 @@ public class AuthController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserServiceImpl userServiceImpl;
 
-    @PostMapping("/authorize")
+    @PostMapping("")
     public String authorize(@RequestBody String login) throws ExecutionException, InterruptedException {
 
         String[] info = login.split(",");
