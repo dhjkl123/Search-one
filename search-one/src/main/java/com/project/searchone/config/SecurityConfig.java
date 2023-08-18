@@ -52,17 +52,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
-			.authorizeHttpRequests((requests) -> requests
-			.requestMatchers("/api/authorize").permitAll()
-			//.requestMatchers("/user/**").hasRole("USER")
-				//.requestMatchers("/**").permitAll()
-				//.requestMatchers("/**").hasRole("USER")
-				.anyRequest().authenticated()
-				
-			)
-			// .formLogin((form) -> form
-			// 	.permitAll()
-			// )
+			.authorizeHttpRequests((requests) -> {})
 			.logout((logout) -> logout.permitAll())
 			.apply(new JwtSecurityConfig(tokenProvider))
 			

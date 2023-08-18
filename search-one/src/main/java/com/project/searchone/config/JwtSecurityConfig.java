@@ -14,10 +14,17 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     private final TokenProvider tokenProvider;
 
     @Override
-    public void configure(HttpSecurity http) {
+    public void configure(HttpSecurity http) throws Exception {
 
         // security 로직에 JwtFilter 등록
-        http.addFilterBefore(
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/user/user2").permitAll()
+                        .anyRequest().authenticated()
+
+                )
+                .addFilterBefore(
                 new JwtFilter(tokenProvider),
                 UsernamePasswordAuthenticationFilter.class
         );

@@ -4,6 +4,7 @@ package com.project.searchone.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import com.project.searchone.repository.LoginReqDto;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -34,11 +35,12 @@ public class AuthController {
     private final UserServiceImpl userServiceImpl;
 
     @PostMapping("")
-    public String authorize(@RequestBody String login) throws ExecutionException, InterruptedException {
+    public String authorize(@RequestBody LoginReqDto login) throws ExecutionException, InterruptedException {
 
-        String[] info = login.split(",");
+        myUser loginDto = userServiceImpl.getUserByUserName(login.getId());
 
-        myUser loginDto = userServiceImpl.getUserByUserName(info[0]);
+        if(!loginDto.getPassword().equals(login.getPw()))
+            return "pw error";
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
