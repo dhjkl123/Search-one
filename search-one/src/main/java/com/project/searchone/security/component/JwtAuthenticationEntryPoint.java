@@ -1,4 +1,4 @@
-package com.project.searchone.component;
+package com.project.searchone.security.component;
 
 import java.io.IOException;
 

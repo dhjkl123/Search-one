@@ -1,4 +1,4 @@
-package com.project.searchone.dto;
+package com.project.searchone.security.dto;
 
 import java.util.ArrayList;
 import java.util.Arrays;

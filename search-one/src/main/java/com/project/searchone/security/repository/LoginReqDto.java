@@ -1,4 +1,4 @@
-package com.project.searchone.repository;
+package com.project.searchone.security.repository;
 
 import lombok.Data;
 
