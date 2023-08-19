@@ -1,4 +1,4 @@
-package com.project.searchone.dto;
+package com.project.searchone.security.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @AllArgsConstructor
