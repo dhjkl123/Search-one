@@ -2,7 +2,6 @@ package com.project.searchone.domain.board.application;
 import java.util.List;
 
 import com.google.cloud.Timestamp;
-import com.google.j2objc.annotations.ObjectiveCName;
 import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.dao.BoardDao;
 import com.project.searchone.domain.board.dto.BoardPostRequestDto;

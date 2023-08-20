@@ -4,7 +4,6 @@ import com.project.searchone.domain.board.application.BoardCommentService;
 import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

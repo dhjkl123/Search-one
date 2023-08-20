@@ -45,12 +45,6 @@ public class BoardDao {
         }
     }
 
-//    public List<Board> getPost() throws ExecutionException, InterruptedException {
-//        List<Board> list = new ArrayList<>();
-//        Firestore db = FirestoreClient.getFirestore();
-//        ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
-//    }
-
     public String save(Board board) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection(COLLECTION_NAME).add(board).get();

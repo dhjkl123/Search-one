@@ -3,7 +3,6 @@ package com.project.searchone.domain.board.application;
 import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentResponseDto;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

@@ -2,7 +2,6 @@ package com.project.searchone.domain.board.application;
 
 import com.google.cloud.Timestamp;
 import com.project.searchone.domain.board.dao.CommentDao;
-import com.project.searchone.domain.board.domain.Board;
 import com.project.searchone.domain.board.domain.Comment;
 import com.project.searchone.domain.board.dto.BoardCommentPostRequestDto;
 import com.project.searchone.domain.board.dto.BoardCommentPutRequestDto;
@@ -32,14 +31,6 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 
     @Override
     public BoardCommentResponseDto postComment(BoardCommentPostRequestDto req) throws ExecutionException, InterruptedException {
-
-        // 기존 set pattern
-//        Comment newComment = new Comment();
-//        newComment.setPost_id(req.getPost_id());
-//        newComment.setUser_id(req.getUser_id());
-//        newComment.setContent(req.getContent());
-//        newComment.setCreated_at(req.getCreated_at());
-//        newComment.setUpdated_at(req.getUpdated_at());
 
         // Comment domain에서 Use @Builder annotation
         Comment newComment = Comment.builder()
