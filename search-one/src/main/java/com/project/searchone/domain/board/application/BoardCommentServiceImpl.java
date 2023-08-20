@@ -30,11 +30,11 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     }
 
     @Override
-    public BoardCommentResponseDto postComment(BoardCommentPostRequestDto req) throws ExecutionException, InterruptedException {
+    public BoardCommentResponseDto postComment(BoardCommentPostRequestDto req, String postId) throws ExecutionException, InterruptedException {
 
         // Comment domain에서 Use @Builder annotation
         Comment newComment = Comment.builder()
-                .post_id(req.getPost_id())
+                .post_id(postId)
                 .user_id(req.getUser_id())
                 .content(req.getContent())
                 .created_at(Timestamp.now())
