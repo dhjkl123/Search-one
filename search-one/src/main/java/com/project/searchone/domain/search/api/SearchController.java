@@ -1,10 +1,12 @@
-package com.project.searchone.search.controller;
+package com.project.searchone.domain.search.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,35 +19,36 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
+import com.project.searchone.domain.board.dto.BoardResponseDto;
 
 @RestController
 @RequestMapping("/search")
-public class KeywordSearch {
+public class SearchController {
 
     public static final String COLLECTION_NAME = "Post";
 
     @GetMapping
-    public List<String> findByKeyword(@RequestParam String query,
+    public ResponseEntity<?> findByKeyword(@RequestParam String query,
                                       @RequestParam Integer count
                                       ) throws InterruptedException, ExecutionException{
                                         
         Firestore db = FirestoreClient.getFirestore();
 
-        List<String> result = new ArrayList<>();
+        List<BoardResponseDto> boards = new ArrayList<>();
 
         CollectionReference  collectionReference = db.collection(COLLECTION_NAME);
         ApiFuture<QuerySnapshot> future = collectionReference
-                                            .whereLessThanOrEqualTo("content", query)
+                                            .whereGreaterThanOrEqualTo("content", query)
                                             .limit(count.intValue())
                                             .get();
         
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         for (QueryDocumentSnapshot document : documents){
-            //list.add(document.toObject(BoardResponseDto.class));
-            result.add(document.get("title").toString());
+            boards.add(document.toObject(BoardResponseDto.class));
+
         }
 
-        return result;
+        return new ResponseEntity<>(boards, HttpStatus.OK);
 
     }
     
