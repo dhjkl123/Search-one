@@ -60,9 +60,12 @@ public class SearchController {
                                                             .collect(Collectors.toList());
 
         if(count.intValue() > documents.size())
-            count = documents.size();      
+            count = documents.size();
 
-        for (int i = 0 + page ; i < (count * page) + count.intValue() ; i++)
+        int paging = count * (page-1);
+        paging = paging < documents.size() ? paging : 0; // post 개수 보다 많이 요청하면 1페이지만 출력
+
+        for (int i = paging ; i < paging + count ; i++)
             boards.add(documents.get(i).toObject(BoardResponseDto.class));
         
         SearchResultResponseDto result = new SearchResultResponseDto(documents.size(),boards);
