@@ -30,7 +30,6 @@ public class SearchController {
 
     @GetMapping
     public ResponseEntity<?> findByKeyword(@RequestParam String query,
-                                      @RequestParam Integer count,
                                       @RequestParam Integer page,
                                       @RequestParam String startDate, // 0001-01-01 ~
                                       @RequestParam String endDate // ~ 9999-12-31
@@ -58,8 +57,8 @@ public class SearchController {
                                                                  return content.contains(query) || title.contains(query) ;
                                                                 } )
                                                             .collect(Collectors.toList());
-
-        if(count.intValue() > documents.size())
+        int count = 10;
+        if(count > documents.size())
             count = documents.size();
 
         int paging = count * (page-1);
@@ -68,7 +67,7 @@ public class SearchController {
         for (int i = paging ; i < paging + count ; i++)
             boards.add(documents.get(i).toObject(BoardResponseDto.class));
         
-        SearchResultResponseDto result = new SearchResultResponseDto(documents.size(),boards);
+        SearchResultResponseDto result = new SearchResultResponseDto((documents.size() / 10) +1, boards);
         
         return new ResponseEntity<>(result, HttpStatus.OK);
 
