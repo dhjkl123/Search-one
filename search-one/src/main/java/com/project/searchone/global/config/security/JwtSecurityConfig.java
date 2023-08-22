@@ -21,8 +21,7 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/user/user2").permitAll()
-                        .requestMatchers("/board").permitAll()
+                        .requestMatchers("/board/**").hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
 
                 )

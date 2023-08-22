@@ -61,7 +61,6 @@ public class SecurityConfig {
 		http
 			.csrf().disable()
 			.authorizeHttpRequests((requests) -> {
-				requests.requestMatchers("/board").permitAll();
 			})
 			.logout((logout) -> logout.permitAll())
 			.apply(new JwtSecurityConfig(tokenProvider))
@@ -76,7 +75,7 @@ public class SecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowCredentials(true);
-		configuration.setAllowedOrigins(Arrays.asList("https://mini-itsm.vercel.app"));
+		configuration.setAllowedOrigins(Arrays.asList("https://mini-itsm.vercel.app","http://localhost:3000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("*"));
