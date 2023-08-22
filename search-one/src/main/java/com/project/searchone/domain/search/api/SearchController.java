@@ -49,9 +49,13 @@ public class SearchController {
                                             .whereGreaterThanOrEqualTo("created_at", timestampStart)
                                             .orderBy("created_at")
                                             .get();
+                                            
         
         List<QueryDocumentSnapshot> documents = future.get().getDocuments()
                                                             .stream().filter(doc-> {
+                                                                if(query.isEmpty())
+                                                                    return true;
+                                                                    
                                                                 String content = doc.get("content").toString();
                                                                 String title = doc.get("title").toString();
                                                                  return content.contains(query) || title.contains(query) ;
@@ -64,7 +68,9 @@ public class SearchController {
         int paging = count * (page-1);
         paging = paging < documents.size() ? paging : 0; // post 개수 보다 많이 요청하면 1페이지만 출력
 
-        for (int i = paging ; i < paging + count ; i++)
+        int lastIndex = (paging + count) > documents.size() ? documents.size() : (paging + count);
+
+        for (int i = paging ; i < lastIndex ; i++)
             boards.add(documents.get(i).toObject(BoardResponseDto.class));
         
         SearchResultResponseDto result = new SearchResultResponseDto((documents.size() / 10) +1, boards);
