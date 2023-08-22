@@ -22,9 +22,11 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/user/user2").permitAll()
+                        .requestMatchers("/board").permitAll()
                         .anyRequest().authenticated()
 
                 )
+                
                 .addFilterBefore(
                 new JwtFilter(tokenProvider),
                 UsernamePasswordAuthenticationFilter.class
