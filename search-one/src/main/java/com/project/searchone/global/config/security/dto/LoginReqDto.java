@@ -1,4 +1,4 @@
-package com.project.searchone.security.repository;
+package com.project.searchone.global.config.security.dto;
 
 import lombok.Data;
 

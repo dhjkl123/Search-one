@@ -1,4 +1,4 @@
-package com.project.searchone.security.repository;
+package com.project.searchone.global.config.security.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
-import com.project.searchone.security.dto.myUser;
+import com.project.searchone.global.config.security.dto.myUser;
 
 @Repository
 public class UserDao {

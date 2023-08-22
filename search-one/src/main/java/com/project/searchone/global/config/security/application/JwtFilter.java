@@ -1,4 +1,4 @@
-package com.project.searchone.security.config;
+package com.project.searchone.global.config.security.application;
 
 import java.io.IOException;
 
@@ -7,8 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
-
-import com.project.searchone.security.component.TokenProvider;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

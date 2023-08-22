@@ -1,4 +1,4 @@
-package com.project.searchone.security.config;
+package com.project.searchone.global.config.security;
 
 import java.io.FileInputStream;
 

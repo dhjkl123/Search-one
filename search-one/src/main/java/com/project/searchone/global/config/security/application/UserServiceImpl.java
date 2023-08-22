@@ -1,12 +1,12 @@
-package com.project.searchone.security.service;
+package com.project.searchone.global.config.security.application;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Service;
 
-import com.project.searchone.security.dto.myUser;
-import com.project.searchone.security.repository.UserDao;
+import com.project.searchone.global.config.security.dao.UserDao;
+import com.project.searchone.global.config.security.dto.myUser;
 
 import lombok.RequiredArgsConstructor;
 

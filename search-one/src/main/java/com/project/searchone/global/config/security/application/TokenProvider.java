@@ -1,4 +1,4 @@
-package com.project.searchone.security.component;
+package com.project.searchone.global.config.security.application;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -21,8 +21,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import com.project.searchone.security.dto.myUser;
-import com.project.searchone.security.service.UserService;
+import com.project.searchone.global.config.security.dto.myUser;
 
 import ch.qos.logback.core.encoder.EncoderBase;
 import io.jsonwebtoken.Claims;

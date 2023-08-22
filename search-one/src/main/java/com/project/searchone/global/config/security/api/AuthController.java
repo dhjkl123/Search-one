@@ -1,13 +1,8 @@
-package com.project.searchone.security.controller;
+package com.project.searchone.global.config.security.api;
 
 
 
 import java.util.concurrent.ExecutionException;
-
-import com.project.searchone.security.dto.myUser;
-import com.project.searchone.security.repository.LoginReqDto;
-import com.project.searchone.security.service.UserServiceImpl;
-import com.project.searchone.security.component.TokenProvider;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.project.searchone.global.config.security.application.TokenProvider;
+import com.project.searchone.global.config.security.application.UserServiceImpl;
+import com.project.searchone.global.config.security.dto.LoginReqDto;
+import com.project.searchone.global.config.security.dto.myUser;
 
 import lombok.RequiredArgsConstructor;
 

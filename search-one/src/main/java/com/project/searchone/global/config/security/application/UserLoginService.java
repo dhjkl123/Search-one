@@ -1,4 +1,4 @@
-package com.project.searchone.security.service;
+package com.project.searchone.global.config.security.application;
 
 import java.util.concurrent.ExecutionException;
 
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.project.searchone.security.dto.myUser;
-import com.project.searchone.security.dto.myUserPrincipal;
+import com.project.searchone.global.config.security.dto.myUser;
+import com.project.searchone.global.config.security.dto.myUserPrincipal;
 
 @Service
 public class UserLoginService implements UserDetailsService {

@@ -1,9 +1,9 @@
-package com.project.searchone.security.service;
+package com.project.searchone.global.config.security.application;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import com.project.searchone.security.dto.myUser;
+import com.project.searchone.global.config.security.dto.myUser;
 
 public interface UserService {
 
