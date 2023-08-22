@@ -31,6 +31,7 @@ public class SearchController {
     @GetMapping
     public ResponseEntity<?> findByKeyword(@RequestParam String query,
                                       @RequestParam Integer count,
+                                      @RequestParam Integer page,
                                       @RequestParam String startDate, // 0001-01-01 ~
                                       @RequestParam String endDate // ~ 9999-12-31
                                       ) throws InterruptedException, ExecutionException{
@@ -61,7 +62,7 @@ public class SearchController {
         if(count.intValue() > documents.size())
             count = documents.size();      
 
-        for (int i = 0 ; i < count.intValue() ; i++)
+        for (int i = 0 + page ; i < (count * page) + count.intValue() ; i++)
             boards.add(documents.get(i).toObject(BoardResponseDto.class));
         
         SearchResultResponseDto result = new SearchResultResponseDto(documents.size(),boards);
