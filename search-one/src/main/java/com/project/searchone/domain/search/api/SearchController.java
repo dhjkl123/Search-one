@@ -71,7 +71,12 @@ public class SearchController {
         int lastIndex = (paging + count) > documents.size() ? documents.size() : (paging + count);
 
         for (int i = paging ; i < lastIndex ; i++)
-            boards.add(documents.get(i).toObject(BoardResponseDto.class));
+        {
+            BoardResponseDto post = documents.get(i).toObject(BoardResponseDto.class);
+            post.setId(documents.get(i).getId());
+            boards.add(post);
+        }
+
         
         SearchResultResponseDto result = new SearchResultResponseDto((documents.size() / 10) +1, boards);
         
