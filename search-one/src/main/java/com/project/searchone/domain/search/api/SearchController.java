@@ -66,7 +66,7 @@ public class SearchController {
             count = documents.size();
 
         int paging = count * (page-1);
-        paging = paging < documents.size() ? paging : 0; // post 개수 보다 많이 요청하면 1페이지만 출력
+        //paging = paging < documents.size() ? paging : 0; // post 개수 보다 많이 요청하면 1페이지만 출력
 
         int lastIndex = (paging + count) > documents.size() ? documents.size() : (paging + count);
 
