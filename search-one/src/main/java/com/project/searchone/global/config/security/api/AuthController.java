@@ -1,12 +1,9 @@
 package com.project.searchone.global.config.security.api;
 
-
-
 import java.util.concurrent.ExecutionException;
 
-import org.apache.tomcat.util.json.JSONParser;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.searchone.global.config.security.application.TokenProvider;
 import com.project.searchone.global.config.security.application.UserServiceImpl;
 import com.project.searchone.global.config.security.dto.LoginReqDto;
+import com.project.searchone.global.config.security.dto.LoginResDto;
 import com.project.searchone.global.config.security.dto.myUser;
 
 import lombok.RequiredArgsConstructor;
@@ -34,12 +32,12 @@ public class AuthController {
     private final UserServiceImpl userServiceImpl;
 
     @PostMapping("")
-    public String authorize(@RequestBody LoginReqDto login) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> authorize(@RequestBody LoginReqDto login) throws ExecutionException, InterruptedException {
 
         myUser loginDto = userServiceImpl.getUserByUserName(login.getId());
 
         if(!loginDto.getPassword().equals(login.getPw()))
-            return "pw error";
+            return new ResponseEntity<>(null, HttpStatus.FOUND);
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
@@ -51,6 +49,11 @@ public class AuthController {
         // authentication 객체를 createToken 메소드를 통해서 JWT Token을 생성
         String jwt = tokenProvider.createToken(authentication);
 
-        return jwt;
+        LoginResDto result = LoginResDto.builder()
+                            .id(login.getId())
+                            .token(jwt)
+                            .build();
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
